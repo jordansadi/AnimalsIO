@@ -2,6 +2,11 @@ package edu.wctc.jsadi;
 
 import java.util.ArrayList;
 
+/**
+ * Created by mgreen14 on 12/27/17.
+ * @author Matt Green
+ * @version 2018 0822 .3
+ */
 public class Main {
 
     private final static FileOutput outFile = new FileOutput("animals.txt");
