@@ -12,7 +12,6 @@ public class Main {
     private final static FileOutput outFile = new FileOutput("animals.txt");
     private final static FileInput inFile = new FileInput("animals.txt");
     public static void main(String[] args) {
-
         ArrayList<Talkable> zoo = new ArrayList<>();
 
         //Lines to Replace
