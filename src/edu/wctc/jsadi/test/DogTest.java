@@ -4,8 +4,8 @@ import org.junit.*;
 
 public class DogTest extends junit.framework.TestCase {
     public DogTest(){}
-    public Dog aDog1;
-    public Dog aDog2;
+
+    Dog aDog1, aDog2;
 
     @Before
     public void setUp() throws Exception {

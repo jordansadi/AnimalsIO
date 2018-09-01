@@ -9,40 +9,51 @@ import java.io.FileReader;
 
 public class FileInputTest extends junit.framework.TestCase {
     public FileInputTest(){}
-    FileInput testFile = new FileInput("testFile");
+
+    FileInput testFile;
+    BufferedReader in;
+    FileOutput outFile;
+    String line;
+    int counter;
 
     @Before
-    public void setUp() throws Exception {}
+    public void setUp() throws Exception {
+        testFile = new FileInput("testFile.txt");
+
+        in = null;
+        try {
+            in = new BufferedReader(new FileReader("testFile.txt"));
+        } catch (FileNotFoundException e) {
+            System.out.println("File Open Error: " + "testFile.txt" + " " + e);
+        }
+
+        outFile = new FileOutput("testFile.txt");
+
+        counter = 0;
+    }
 
     @After
-    public void tearDown() throws Exception {}
+    public void tearDown() throws Exception {
+        outFile.fileClose();
+        testFile.fileClose();
+    }
 
     @Test
     public void testFileRead() {
-        BufferedReader in = null;
-        try {
-            in = new BufferedReader(new FileReader("testFile"));
-        } catch (FileNotFoundException e) {
-            System.out.println("File Open Error: " + "testFile" + " " + e);
-        }
-        FileOutput outFile = new FileOutput("testFile");
         outFile.fileWrite("testing...");
         outFile.fileClose();
-        String line;
-        int counter = 0;
         try {
             while ((line = in.readLine()) != null) {
                 counter++;
             }
         } catch (Exception e) {
-            System.out.println("File Write Error: " + "testFile" + " " + e);
+            System.out.println("File Write Error: " + "testFile.txt" + " " + e);
         }
         assertEquals(1, counter);
     }
 
     @Test
     public void testFileReadLine() {
-        FileOutput outFile = new FileOutput("testFile");
         outFile.fileWrite("testing...");
         outFile.fileClose();
         assertEquals("testing...", testFile.fileReadLine());
@@ -50,7 +61,6 @@ public class FileInputTest extends junit.framework.TestCase {
 
     @Test
     public void testFileClose() {
-        FileOutput outFile = new FileOutput("testFile");
         outFile.fileWrite("testing...");
         testFile.fileClose();
         assertNotSame("testing...", testFile.fileReadLine());

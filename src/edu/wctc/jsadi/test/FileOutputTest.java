@@ -5,27 +5,44 @@ import org.junit.*;
 
 public class FileOutputTest extends junit.framework.TestCase {
     public FileOutputTest(){}
-    FileOutput testFile = new FileOutput("testFile");
+
+    FileOutput testFile, newFile;
+    FileInput testRead, readNew;
 
     @Before
-    public void setUp() throws Exception {}
+    public void setUp() throws Exception {
+        // file already exists
+        testFile = new FileOutput("testFile.txt");
+        testRead = new FileInput("testFile.txt");
+
+        // file does not yet exist
+        // FileOutput can create a new file to output to, but FileInput must read from a file that already exists
+        newFile = new FileOutput("newFile.txt");
+        readNew = new FileInput("newFile.txt");
+    }
 
     @After
-    public void tearDown() throws Exception {}
+    public void tearDown() throws Exception {
+        testFile.fileClose();
+        testRead.fileClose();
+        newFile.fileClose();
+        readNew.fileClose();
+    }
 
     @Test
     public void testFileWrite() {
         testFile.fileWrite("Will it work?");
         testFile.fileClose();
-        FileInput testRead = new FileInput("testFile");
         assertEquals("Will it work?", testRead.fileReadLine());
+        newFile.fileWrite("this should not work");
+        newFile.fileClose();
+        assertEquals("this should not work", readNew.fileReadLine());
     }
 
     @Test
-    public void testFileCLose() {
+    public void testFileClose() {
         testFile.fileClose();
         testFile.fileWrite("This should not work");
-        FileInput testRead = new FileInput("testFile");
         assertNotSame("This should not work", testRead.fileReadLine());
     }
 }

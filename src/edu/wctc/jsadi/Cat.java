@@ -1,6 +1,7 @@
 package edu.wctc.jsadi;
 
 /**
+ * This class defines a Cat, which is a type of Pet
  * Created by mgreen14 on 12/27/17.
  * @author Matt Green
  * @version 2018 0822 .3
@@ -11,7 +12,8 @@ public class Cat extends Pet implements Talkable {
     /**
      * The Cat constructor initializes the number of mice killed by the Cat and the name of the Cat
      * @param mousesKilled number of mice killed by the Cat
-     * @param name the name of the cat
+     * @param name the name of the Cat
+     * @return instance of the Cat class
      */
     public Cat(int mousesKilled, String name) {
         super(name);
