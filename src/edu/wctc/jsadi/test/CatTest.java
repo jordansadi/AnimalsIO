@@ -4,8 +4,8 @@ import org.junit.*;
 
 public class CatTest extends junit.framework.TestCase {
     public CatTest(){}
-    public Cat cat1;
-    public Cat cat2;
+
+    Cat cat1, cat2;
 
     @Before
     public void setUp() throws Exception {

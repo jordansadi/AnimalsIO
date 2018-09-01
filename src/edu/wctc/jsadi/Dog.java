@@ -1,6 +1,7 @@
 package edu.wctc.jsadi;
 
 /**
+ * This class defines a Dog, which is a type of Pet
  * Created by mgreen14 on 12/27/17.
  * @author Matt Green
  * @version 2018 0822 .3
@@ -12,6 +13,7 @@ public class Dog extends Pet implements Talkable {
      * The Dog constructor initializes the disposition and name of the animal
      * @param friendly an indicator of whether the dog can be approached
      * @param name the name of the dog
+     * @return instance of the Dog class
      */
     public Dog(boolean friendly, String name) {
         super(name);

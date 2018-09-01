@@ -4,7 +4,8 @@ import org.junit.*;
 
 public class StudentTest extends junit.framework.TestCase {
     public StudentTest(){}
-    public Student student1;
+
+    Student student1;
 
     @Before
     public void setUp() throws Exception {
