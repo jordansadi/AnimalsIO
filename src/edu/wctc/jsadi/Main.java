@@ -16,12 +16,39 @@ public class Main {
     private final static FileInput inFile = new FileInput("animals.txt");
     public static void main(String[] args) {
         ArrayList<Talkable> zoo = new ArrayList<>();
-
-        //Lines to Replace
-        zoo.add(addDog());
-        zoo.add(addCat());
-        zoo.add(addStudent());
-        //End Lines to Replace
+        boolean keepGoing = true;
+        String userInput;
+        Scanner k = new Scanner(System.in);
+        while(true) {
+            System.out.println("Do you want to add something to the zoo (Y/N)?");
+            userInput = k.nextLine();
+            if (userInput.toUpperCase().charAt(0) == 'N') {
+                break;
+            }
+            else {
+                keepGoing = true;
+                while(keepGoing) {
+                    System.out.println("Enter C to add a Cat, D to add a Dog, or S to add a Student:");
+                    userInput = k.nextLine();
+                    switch (userInput.toUpperCase().charAt(0)) {
+                        case 'C':
+                            zoo.add(addCat());
+                            keepGoing = false;
+                            break;
+                        case 'D':
+                            zoo.add(addDog());
+                            keepGoing = false;
+                            break;
+                        case 'S':
+                            zoo.add(addStudent());
+                            keepGoing = false;
+                            break;
+                        default:
+                            System.out.println("Please enter a valid character.");
+                    }
+                }
+            }
+        }
 
         for (Talkable thing: zoo) {
             printOut(thing);
@@ -54,7 +81,7 @@ public class Main {
         String name = "";
         int mice = 0;
         boolean keepGoing = false;
-        Scanner k = new Scanner(System.in);
+        AnimalIO converter = new AnimalIO();
         BufferedReader inStream = new BufferedReader (new InputStreamReader(System.in));
 
         System.out.println("What is the name of your cat?");
@@ -67,16 +94,14 @@ public class Main {
         while (!keepGoing) {
             System.out.println("How many mice has your cat killed?");
             try {
-                mice = k.nextInt();
+                mice = converter.convertToInt(inStream.readLine());
                 keepGoing = true;
             } catch (Exception e) {
                 System.out.println("You must enter an integer.");
-                k.next();
             }
         }
 
-        Cat newCat = new Cat(mice, name);
-        return newCat;
+        return new Cat(mice, name);
     }
 
     /**
@@ -85,9 +110,9 @@ public class Main {
      * @return instance of the Dog class
      */
     public static Dog addDog() {
-        String name = "";
+        String name = "", userInput = "";
         boolean friendly = false, keepGoing = false;
-        Scanner k = new Scanner(System.in);
+        AnimalIO converter = new AnimalIO();
         BufferedReader inStream = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("What is the name of your dog?");
@@ -98,18 +123,19 @@ public class Main {
         }
 
         while (!keepGoing) {
-            System.out.println("Is your dog friendly? (true/false)");
+            System.out.println("Is your dog friendly? Enter 'true' or 'false'");
             try {
-                friendly = k.nextBoolean();
-                keepGoing = true;
+                userInput = inStream.readLine();
+                if (userInput.toLowerCase().equals("true") || userInput.toUpperCase().equals("false")) {
+                    friendly = converter.convertToBoolean(userInput);
+                    keepGoing = true;
+                }
             } catch (Exception e) {
                 System.out.println("You must enter 'true' or 'false'.");
-                k.next();
             }
         }
 
-        Dog newDog = new Dog(friendly, name);
-        return newDog;
+        return new Dog(friendly, name);
     }
 
     /**
@@ -122,7 +148,7 @@ public class Main {
         int age = 0;
         boolean keepGoing = false;
 
-        Scanner k = new Scanner(System.in);
+        AnimalIO converter = new AnimalIO();
         BufferedReader inStream = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("What is the name of your student?");
@@ -135,15 +161,13 @@ public class Main {
         while (!keepGoing) {
             System.out.println("How old is your student?");
             try {
-                age = k.nextInt();
+                age = converter.convertToInt(inStream.readLine());
                 keepGoing = true;
             } catch (Exception e) {
                 System.out.println("You must enter an integer.");
-                k.next();
             }
         }
 
-        Student newStudent = new Student(age, name);
-        return newStudent;
+        return new Student(age, name);
     }
 }
