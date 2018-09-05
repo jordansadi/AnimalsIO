@@ -17,6 +17,12 @@ public class DogTest extends junit.framework.TestCase {
     public void tearDown() throws Exception {}
 
     @Test
+    public void testGetName() {
+        assertEquals(aDog1.getName(), "Fido");
+        assertNotSame(aDog2.getName(), "Fido");
+    }
+
+    @Test
     public void testIsFriendly() {
         assertTrue("The dog is friendly", aDog1.isFriendly());
         assertFalse("The dog is friendly", aDog2.isFriendly());
