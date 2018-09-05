@@ -16,6 +16,19 @@ public class StudentTest extends junit.framework.TestCase {
     public void tearDown() throws Exception {}
 
     @Test
+    public void testGetName() {
+        assertEquals(student1.getName(), "Jordan");
+        assertNotSame(student1.getName(), "Nadroj");
+    }
+
+    @Test
+    public void testSetName() {
+        student1.setName("Nadroj");
+        assertEquals(student1.getName(), "Nadroj");
+        assertNotSame(student1.getName(), "Jordan");
+    }
+
+    @Test
     public void testGetAge() {
         assertEquals(28, student1.getAge());
     }

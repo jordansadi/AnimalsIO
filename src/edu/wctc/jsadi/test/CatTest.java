@@ -17,6 +17,12 @@ public class CatTest extends junit.framework.TestCase {
     public void tearDown() throws Exception {}
 
     @Test
+    public void testGetName() {
+        assertEquals(cat1.getName(), "Meow");
+        assertNotSame(cat2.getName(), "Meow");
+    }
+
+    @Test
     public void testGetMousesKilled() {
         assertEquals(1, cat1.getMousesKilled());
         assertEquals(0, cat2.getMousesKilled());
